@@ -53,10 +53,12 @@ declare -a ascii_icon_mist
 script_directory=$(dirname "$0")
 
 # source "${script_directory}/check-prerequisites.sh"
+source "${script_directory}/create-buffer.sh"
 source "${script_directory}/init.sh"
 source "${script_directory}/get-ip.sh"
 source "${script_directory}/get-geolocation-data.sh"
 source "${script_directory}/get-weather-data.sh"
+source "${script_directory}/refresh-screen.sh"
 source "${script_directory}/print-ascii-icon.sh"
 source "${script_directory}/main-loop.sh"
 source "${script_directory}/quit.sh"

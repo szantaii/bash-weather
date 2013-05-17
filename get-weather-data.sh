@@ -36,7 +36,7 @@ units=${unit_type}&cnt=4")
 	
 	wind_direction=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<direction value=\")[^/]*" | \
-		grep -o -P -i "(?<=name=\")[^\"]*")
+		grep -o -P -i "(?<=code=\")[^\"]*")
 	
 	weather_condition=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<weather number=\"...\" value=\")[^\"]*")

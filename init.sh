@@ -189,15 +189,20 @@ init()
 	ascii_icon_mist[0]="                 .'o**********'.  "
 	ascii_icon_mist[0]="                    .'o***o',.    "
 	
+	left_padding=$(((term_width - min_term_width) / 2))
+	top_padding=$(((term_height - min_term_height) / 2))
+	
 	read -r unit_type < "${script_directory}/unit_type"
 	
-	if [[ "${unit_type}" == "metric" ]]
-	then
-		temperature_unit="C"
-		wind_unit="km/h"
-	else
-		temperature_unit="F"
-		wind_unit="mph"
-	fi
+	create_buffer
+	
+#	if [[ "${unit_type}" == "metric" ]]
+#	then
+#		temperature_unit="C"
+#		wind_unit="km/h"
+#	else
+#		temperature_unit="F"
+#		wind_unit="mph"
+#	fi
 }
 
