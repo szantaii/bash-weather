@@ -4,26 +4,25 @@ main_loop()
 {
 	init
 	
-	get_ip
-	get_geolocation_data
-	get_weather_data
-	
-	print_ascii_icon
-	
-	refresh_screen
-	
-#	echo ${temperature_value} ${temperature_unit}
-#	echo ${wind_value} ${wind_unit} ${wind_direction}
-#	echo ${weather_condition}
-#	
-#	for ((i=0; i < 4; i++))
-#	do
-#		echo ${day1[${i}]}
-#		echo ${day2[${i}]}
-#		echo ${day3[${i}]}
-#	done
-	
-	read -sn1
+	while true
+	do
+		get_ip
+		get_geolocation_data
+		get_weather_data
+		
+		print_title
+		print_location
+		print_current_temperature
+		print_wind
+		print_ascii_icon
+		print_weather_condition
+		print_forecast
+		print_help
+		
+		refresh_screen
+		
+		read_input
+	done
 	
 	quit
 }

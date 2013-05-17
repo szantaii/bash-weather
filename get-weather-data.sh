@@ -2,8 +2,6 @@
 
 get_weather_data()
 {
-	local conversion_unit=""
-	
 	local day1_date
 	local day2_date
 	local day3_date
@@ -25,15 +23,6 @@ units=${unit_type}&cnt=4")
 	wind_value=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<speed value=\")[^\"]*")
 	
-	if [[ "${unit_type}" == "metric" ]]
-	then
-		conversion_unit="3.6"
-	else
-		conversion_unit="2.2369"
-	fi
-	
-	wind_value=$(echo "scale=1; ${wind_value} * ${conversion_unit}" | bc -l)
-	
 	wind_direction=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<direction value=\")[^/]*" | \
 		grep -o -P -i "(?<=code=\")[^\"]*")
@@ -41,21 +30,12 @@ units=${unit_type}&cnt=4")
 	weather_condition=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<weather number=\"...\" value=\")[^\"]*")
 	
-	weather_condition="${weather_condition,,}"
-	
-	if [[ "${weather_condition}" == "sky is clear" ]]
-	then
-		weather_condition="clear sky"
-	fi
-	
-	weather_condition="${weather_condition^^}"
-	
 	weather_condition_icon=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<weather)[^/]*" | \
 		grep -o -P -i "(?<=icon=\")[^\"]*")
 	
 	# day1 name
-	day1[0]=$(date --date="1 day" +%a)
+	day1[0]=$(get_day_of_week $(date --date="1 day" +%w))
 	
 	day1_date=$(date --date="1 day" +%Y-%m-%d)
 	
@@ -63,8 +43,11 @@ units=${unit_type}&cnt=4")
 		grep -o -P -i -m 1 "(?<=<time day=\"${day1_date}\">).*?(?=</time>)")
 	
 	# day1 weather condition
+	
+	# <symbol number="500" name="light rain" var="10"/>
+	
 	day1[1]=$(echo ${day1_forecast_data} | \
-		grep -o -P -i "(?<=<clouds value=\")[^\"]*")
+		grep -o -P -i "(?<=<symbol number=\"...\" name=\")[^\"]*")
 	
 	# day1 min temperature
 	day1[2]=$(echo ${day1_forecast_data} | \
@@ -77,7 +60,7 @@ units=${unit_type}&cnt=4")
 		grep -o -P -i "(?<=max=\")[^\.]*")
 	
 	# day2 name
-	day2[0]=$(date --date="2 days" +%a)
+	day2[0]=$(get_day_of_week $(date --date="2 days" +%w))
 	
 	day2_date=$(date --date="2 days" +%Y-%m-%d)
 	
@@ -86,7 +69,7 @@ units=${unit_type}&cnt=4")
 	
 	# day2 weather condition
 	day2[1]=$(echo ${day2_forecast_data} | \
-		grep -o -P -i "(?<=<clouds value=\")[^\"]*")
+		grep -o -P -i "(?<=<symbol number=\"...\" name=\")[^\"]*")
 	
 	# day2 min temperature
 	day2[2]=$(echo ${day2_forecast_data} | \
@@ -99,7 +82,7 @@ units=${unit_type}&cnt=4")
 		grep -o -P -i "(?<=max=\")[^\.]*")
 	
 	# day3 name
-	day3[0]=$(date --date="3 days" +%a)
+	day3[0]=$(get_day_of_week $(date --date="3 days" +%w))
 	
 	day3_date=$(date --date="3 days" +%Y-%m-%d)
 	
@@ -108,7 +91,7 @@ units=${unit_type}&cnt=4")
 	
 	# day3 weather condition
 	day3[1]=$(echo ${day3_forecast_data} | \
-		grep -o -P -i "(?<=<clouds value=\")[^\"]*")
+		grep -o -P -i "(?<=<symbol number=\"...\" name=\")[^\"]*")
 	
 	# day3 min temperature
 	day3[2]=$(echo ${day3_forecast_data} | \

@@ -2,6 +2,104 @@
 
 init()
 {
+	ascii_font_0[0]="  ___  "
+	ascii_font_0[1]=" / _ \ "
+	ascii_font_0[2]="| | | |"
+	ascii_font_0[3]="| | | |"
+	ascii_font_0[4]="| |_| |"
+	ascii_font_0[5]=" \___/ "
+	
+	ascii_font_1[0]=" __ "
+	ascii_font_1[1]="/_ |"
+	ascii_font_1[2]=" | |"
+	ascii_font_1[3]=" | |"
+	ascii_font_1[4]=" | |"
+	ascii_font_1[5]=" |_|"
+	
+	ascii_font_2[0]=" ___  "
+	ascii_font_2[1]="|__ \ "
+	ascii_font_2[2]="   ) |"
+	ascii_font_2[3]="  / / "
+	ascii_font_2[4]=" / /_ "
+	ascii_font_2[5]="|____|"
+	
+	ascii_font_3[0]=" ____  "
+	ascii_font_3[1]="|___ \ "
+	ascii_font_3[2]="  __) |"
+	ascii_font_3[3]=" |__ < "
+	ascii_font_3[4]=" ___) |"
+	ascii_font_3[5]="|____/ "
+	
+	ascii_font_4[0]=" _  _   "
+	ascii_font_4[1]="| || |  "
+	ascii_font_4[2]="| || |_ "
+	ascii_font_4[3]="|__   _|"
+	ascii_font_4[4]="   | |  "
+	ascii_font_4[5]="   |_|  "
+	
+	ascii_font_5[0]=" _____ "
+	ascii_font_5[1]="| ____|"
+	ascii_font_5[2]="| |__  "
+	ascii_font_5[3]="|___ \ "
+	ascii_font_5[4]=" ___) |"
+	ascii_font_5[5]="|____/ "
+	
+	ascii_font_6[0]="   __  "
+	ascii_font_6[1]="  / /  "
+	ascii_font_6[2]=" / /_  "
+	ascii_font_6[3]="| '_ \ "
+	ascii_font_6[4]="| (_) |"
+	ascii_font_6[5]=" \___/ "
+	
+	ascii_font_7[0]=" _______"
+	ascii_font_7[1]="|____  /"
+	ascii_font_7[2]="    / / "
+	ascii_font_7[3]="   / /  "
+	ascii_font_7[4]="  / /   "
+	ascii_font_7[5]=" /_/    "
+	
+	ascii_font_8[0]="  ___  "
+	ascii_font_8[1]=" / _ \ "
+	ascii_font_8[2]="| (_) |"
+	ascii_font_8[3]=" > _ < "
+	ascii_font_8[4]="| (_) |"
+	ascii_font_8[5]=" \___/ "
+	
+	ascii_font_9[0]="  ___  "
+	ascii_font_9[1]=" / _ \ "
+	ascii_font_9[2]="| (_) |"
+	ascii_font_9[3]=" \__, |"
+	ascii_font_9[4]="   / / "
+	ascii_font_9[5]="  /_/  "
+	
+	ascii_font_min[0]="     "
+	ascii_font_min[1]="     "
+	ascii_font_min[2]=" ___ "
+	ascii_font_min[3]="|___|"
+	ascii_font_min[4]="     "
+	ascii_font_min[5]="     "
+	
+	ascii_font_o[0]=" _ "
+	ascii_font_o[1]="(_)"
+	ascii_font_o[2]="   "
+	ascii_font_o[3]="   "
+	ascii_font_o[4]="   "
+	ascii_font_o[5]="   "
+	
+	ascii_font_C[0]="  _____ "
+	ascii_font_C[1]=" / ____|"
+	ascii_font_C[2]="| |     "
+	ascii_font_C[3]="| |     "
+	ascii_font_C[4]="| |____ "
+	ascii_font_C[5]=" \_____|"
+	
+	ascii_font_F[0]=" ______ "
+	ascii_font_F[1]="|  ____|"
+	ascii_font_F[2]="| |__   "
+	ascii_font_F[3]="|  __|  "
+	ascii_font_F[4]="| |     "
+	ascii_font_F[5]="|_|     "
+	
 	ascii_icon_clear_sky_day[0]="                   oo                   "
 	ascii_icon_clear_sky_day[1]="      .            **            .      "
 	ascii_icon_clear_sky_day[2]="       *'.         **         .'*       "
@@ -196,13 +294,13 @@ init()
 	
 	create_buffer
 	
-#	if [[ "${unit_type}" == "metric" ]]
-#	then
-#		temperature_unit="C"
-#		wind_unit="km/h"
-#	else
-#		temperature_unit="F"
-#		wind_unit="mph"
-#	fi
+	if [[ "${unit_type}" == "metric" ]]
+	then
+		temperature_unit="C"
+		wind_unit="km/h"
+	else
+		temperature_unit="F"
+		wind_unit="mph"
+	fi
 }
 

@@ -38,6 +38,22 @@ declare -a day1
 declare -a day2
 declare -a day3
 
+declare -a ascii_font_0
+declare -a ascii_font_1
+declare -a ascii_font_2
+declare -a ascii_font_3
+declare -a ascii_font_4
+declare -a ascii_font_5
+declare -a ascii_font_6
+declare -a ascii_font_7
+declare -a ascii_font_8
+declare -a ascii_font_9
+declare -a ascii_font_min
+declare -a ascii_font_o
+declare -a ascii_font_C
+declare -a ascii_font_F
+
+
 declare -a ascii_icon_clear_sky_day
 declare -a ascii_icon_clear_sky_night
 declare -a ascii_icon_few_clouds_day
@@ -57,9 +73,19 @@ source "${script_directory}/create-buffer.sh"
 source "${script_directory}/init.sh"
 source "${script_directory}/get-ip.sh"
 source "${script_directory}/get-geolocation-data.sh"
+source "${script_directory}/get-day-of-week.sh"
 source "${script_directory}/get-weather-data.sh"
 source "${script_directory}/refresh-screen.sh"
+source "${script_directory}/print-title.sh"
+source "${script_directory}/print-location.sh"
+source "${script_directory}/print-current-temperature.sh"
+source "${script_directory}/print-wind.sh"
 source "${script_directory}/print-ascii-icon.sh"
+source "${script_directory}/print-weather-condition.sh"
+source "${script_directory}/print-forecast.sh"
+source "${script_directory}/print-help.sh"
+source "${script_directory}/change-unit-type.sh"
+source "${script_directory}/read-input.sh"
 source "${script_directory}/main-loop.sh"
 source "${script_directory}/quit.sh"
 
