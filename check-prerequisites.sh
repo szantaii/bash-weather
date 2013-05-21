@@ -11,7 +11,7 @@ check_prerequisites()
 	which tput > /dev/null
 	
 	# If 'tput' is not available, then print
-	# error message and exit with status code '2'
+	# error message and exit with status code '1'
 	if (($? != 0))
 	then
 		# Restore terminal screen
@@ -24,14 +24,14 @@ the following distributions:\n    Distribution        Package name\n\
 Debian              ncurses-bin\n    Fedora              ncurses\n    \
 openSUSE            ncurses-utils\n    Ubuntu              ncurses-bin\n"
 		
-		exit 2
+		exit 1
 	fi
 	
 	# Check if 'curl' command is available
 	which curl > /dev/null
 	
 	# If 'curl' is not available, then print
-	# error message and exit with status code '2'
+	# error message and exit with status code '1'
 	if (($? != 0))
 	then
 		# Restore terminal screen
@@ -41,7 +41,7 @@ openSUSE            ncurses-utils\n    Ubuntu              ncurses-bin\n"
 for bash-weather\nto run. 'curl' can be found in the 'curl' package on most \
 Linux distributions.\n"
 		
-		exit 2
+		exit 1
 	fi
 	
 
@@ -50,7 +50,7 @@ Linux distributions.\n"
 	which bc > /dev/null
 	
 	# If 'bc' is not available, then print
-	# error message and exit with status code '2'
+	# error message and exit with status code '1'
 	if (($? != 0))
 	then
 		# Restore terminal screen
@@ -60,7 +60,7 @@ Linux distributions.\n"
 for bash-weather\nto run. 'bc' can be found in the 'bc' package on most Linux \
 distributions.\n"
 		
-		exit 2
+		exit 1
 	fi
 	
 	# Check if terminal has at least $min_term_width columns and
@@ -78,7 +78,7 @@ distributions.\n"
 ${min_term_width}x${min_term_height} (${min_term_width} columns, \
 ${min_term_height} lines).\n"
 		
-		exit 3
+		exit 2
 	fi
 }
 
