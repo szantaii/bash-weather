@@ -68,7 +68,7 @@ declare -a ascii_icon_mist
 
 script_directory=$(dirname "$0")
 
-# source "${script_directory}/check-prerequisites.sh"
+source "${script_directory}/check-prerequisites.sh"
 source "${script_directory}/create-buffer.sh"
 source "${script_directory}/init.sh"
 source "${script_directory}/get-ip.sh"
@@ -89,7 +89,7 @@ source "${script_directory}/read-input.sh"
 source "${script_directory}/main-loop.sh"
 source "${script_directory}/quit.sh"
 
-# check_prerequisites
+check_prerequisites
 
 main_loop
 

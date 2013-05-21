@@ -292,6 +292,13 @@ init()
 	
 	read -r unit_type < "${script_directory}/unit_type"
 	
+	if [[ "${unit_type}" != "metric" && "${unit_type}" != "imperial" ]]
+	then
+		unit_type="metric"
+		
+		printf "${unit_type}" > "${script_directory}/unit_type"
+	fi
+	
 	create_buffer
 	
 	if [[ "${unit_type}" == "metric" ]]
