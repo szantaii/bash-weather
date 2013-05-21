@@ -10,6 +10,8 @@ main_loop()
 		get_geolocation_data
 		get_weather_data
 		
+		clear >> ${buffer}
+		
 		print_title
 		print_location
 		print_current_temperature
@@ -26,3 +28,4 @@ main_loop()
 	
 	quit
 }
+

@@ -2,6 +2,14 @@
 
 init()
 {
+	create_buffer
+	
+	left_padding=$(((term_width - min_term_width) / 2))
+	top_padding=$(((term_height - min_term_height) / 2))
+	
+	print_init_message
+	refresh_screen
+	
 	ascii_font_0[0]="  ___  "
 	ascii_font_0[1]=" / _ \ "
 	ascii_font_0[2]="| | | |"
@@ -287,9 +295,6 @@ init()
 	ascii_icon_mist[0]="                 .'o**********'.  "
 	ascii_icon_mist[0]="                    .'o***o',.    "
 	
-	left_padding=$(((term_width - min_term_width) / 2))
-	top_padding=$(((term_height - min_term_height) / 2))
-	
 	read -r unit_type < "${script_directory}/unit_type"
 	
 	if [[ "${unit_type}" != "metric" && "${unit_type}" != "imperial" ]]
@@ -298,8 +303,6 @@ init()
 		
 		printf "${unit_type}" > "${script_directory}/unit_type"
 	fi
-	
-	create_buffer
 	
 	if [[ "${unit_type}" == "metric" ]]
 	then
