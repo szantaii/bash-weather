@@ -11,11 +11,12 @@ get_weather_data()
 	local day3_forecast_data
 	
 	current_weather_data=$(curl -s "http://api.openweathermap.org/\
-data/2.5/weather?q=${city_name},${country_code}&mode=xml&units=${unit_type}")
+data/2.5/weather?lat=${latitude}&lon=${longitude}&mode=xml&\
+units=${unit_type}")
 	
 	weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
-data/2.5/forecast/daily?q=${city_name},${country_code}&mode=xml&\
-units=${unit_type}&cnt=4")
+data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=4&mode=xml\
+&units=${unit_type}")
 	
 	temperature_value=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<temperature value=\")[^\.]*")
@@ -43,9 +44,6 @@ units=${unit_type}&cnt=4")
 		grep -o -P -i -m 1 "(?<=<time day=\"${day1_date}\">).*?(?=</time>)")
 	
 	# day1 weather condition
-	
-	# <symbol number="500" name="light rain" var="10"/>
-	
 	day1[1]=$(echo ${day1_forecast_data} | \
 		grep -o -P -i "(?<=<symbol number=\"...\" name=\")[^\"]*")
 	
