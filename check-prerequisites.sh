@@ -44,7 +44,22 @@ Linux distributions.\n"
 		exit 1
 	fi
 	
-
+	# Check if 'grep' command is available
+	which grep > /dev/null
+	
+	# If 'grep' is not available, then print
+	# error message and exit with status code '1'
+	if (($? != 0))
+	then
+		# Restore terminal screen
+		tput rmcup
+		
+		printf "Your system is missing the program 'grep' which is necessary \
+for bash-weather\nto run. 'grep' can be found in the 'grep' package on most \
+Linux distributions.\n"
+		
+		exit 1
+	fi
 	
 	# Check if 'bc' command is available
 	which bc > /dev/null
