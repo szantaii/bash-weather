@@ -54,6 +54,8 @@ weather_condition=""
 weather_condition_icon=""
 weather_forecast_data=""
 
+manual_setting=0
+
 declare -a day1
 declare -a day2
 declare -a day3
@@ -112,6 +114,53 @@ source "${script_directory}/main-loop.sh"
 source "${script_directory}/quit.sh"
 
 check_prerequisites
+
+# Parse option flags and their arguments
+while getopts ":t:c:h" option
+do
+	case ${option} in
+		h)
+			tput rmcup
+			printf "bash-weather Copyright (C) Istvan Szantai \
+\x3c\x73\x7a\x61\x6e\x74\x61\x69\x69\x40\x73\x69\x64\x65\x6e\x6f\
+\x74\x65\x2e\x68\x75\x3e 2013\n\
+For more detailed help please see the file 'README.md'.\n"
+			exit 0
+			;;
+		t)
+			city_name="${OPTARG}"
+			;;
+		c)
+			country_code=${OPTARG}
+			;;
+		:)
+			tput rmcup
+			
+			if [[ "${OPTARG}" == "t" ]]
+			then
+				printf "Missing argument for option: -${OPTARG}. \
+Please specity a town or city name.\n"
+			elif [[ "${OPTARG}" == "c" ]]
+			then
+				printf "Missing argument for option: -${OPTARG}. \
+Please specify a country code.\n"
+			fi
+			
+			exit 1
+			;;
+		\?)
+			tput rmcup
+			printf "Invalid option: -${OPTARG}.\n"
+			exit 1
+			;;
+	esac
+done
+
+if [[ "${city_name}" != "" && "${country_code}" != "" ]]
+then
+	manual_setting=1
+	country_name="${country_code}"
+fi
 
 main_loop
 

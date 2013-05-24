@@ -23,8 +23,11 @@ main_loop()
 	
 	while true
 	do
-		get_ip
-		get_geolocation_data
+		if ((manual_setting == 0))
+		then
+			get_ip
+			get_geolocation_data
+		fi
 		get_weather_data
 		
 		clear >> ${buffer}

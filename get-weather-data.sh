@@ -27,13 +27,24 @@ get_weather_data()
 	local day2_forecast_data
 	local day3_forecast_data
 	
-	current_weather_data=$(curl -s "http://api.openweathermap.org/\
+	if ((manual_setting == 0))
+	then
+		current_weather_data=$(curl -s "http://api.openweathermap.org/\
 data/2.5/weather?lat=${latitude}&lon=${longitude}&mode=xml&\
 units=${unit_type}")
-	
-	weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
+		
+		weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
 data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=4&mode=xml\
 &units=${unit_type}")
+	else
+		current_weather_data=$(curl -s "http://api.openweathermap.org/\
+data/2.5/weather?q=${city_name// /%20},${country_code}&mode=xml\
+&units=${unit_type}")
+		
+		weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
+data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
+&units=${unit_type}")
+	fi
 	
 	temperature_value=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<temperature value=\")[^\.]*")
