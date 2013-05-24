@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# bash-weather is a weather report and forecast script written in Bash.
+# Copyright (C) 2013 Istvan Szantai <szantaii at sidenote dot hu>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program (LICENSE).
+# If not, see <http://www.gnu.org/licenses/>.
+
 # Save terminal screen
 tput smcup
 
@@ -21,7 +38,10 @@ current_ip=""
 geolocation_data=""
 country_code=""
 country_name=""
+state_name=""
 city_name=""
+latitude=""
+longitude=""
 
 current_weather_data=""
 unit_type=""
@@ -33,6 +53,8 @@ wind_direction=""
 weather_condition=""
 weather_condition_icon=""
 weather_forecast_data=""
+
+manual_setting=0
 
 declare -a day1
 declare -a day2
@@ -92,6 +114,53 @@ source "${script_directory}/main-loop.sh"
 source "${script_directory}/quit.sh"
 
 check_prerequisites
+
+# Parse option flags and their arguments
+while getopts ":t:c:h" option
+do
+	case ${option} in
+		h)
+			tput rmcup
+			printf "bash-weather Copyright (C) Istvan Szantai \
+\x3c\x73\x7a\x61\x6e\x74\x61\x69\x69\x40\x73\x69\x64\x65\x6e\x6f\
+\x74\x65\x2e\x68\x75\x3e 2013\n\
+For more detailed help please see the file 'README.md'.\n"
+			exit 0
+			;;
+		t)
+			city_name="${OPTARG}"
+			;;
+		c)
+			country_code=${OPTARG}
+			;;
+		:)
+			tput rmcup
+			
+			if [[ "${OPTARG}" == "t" ]]
+			then
+				printf "Missing argument for option: -${OPTARG}. \
+Please specity a town or city name.\n"
+			elif [[ "${OPTARG}" == "c" ]]
+			then
+				printf "Missing argument for option: -${OPTARG}. \
+Please specify a country code.\n"
+			fi
+			
+			exit 1
+			;;
+		\?)
+			tput rmcup
+			printf "Invalid option: -${OPTARG}.\n"
+			exit 1
+			;;
+	esac
+done
+
+if [[ "${city_name}" != "" && "${country_code}" != "" ]]
+then
+	manual_setting=1
+	country_name="${country_code}"
+fi
 
 main_loop
 

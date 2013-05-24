@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# bash-weather is a weather report and forecast script written in Bash.
+# Copyright (C) 2013 Istvan Szantai <szantaii at sidenote dot hu>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program (LICENSE).
+# If not, see <http://www.gnu.org/licenses/>.
+
 get_weather_data()
 {
 	local day1_date
@@ -10,12 +27,24 @@ get_weather_data()
 	local day2_forecast_data
 	local day3_forecast_data
 	
-	current_weather_data=$(curl -s "http://api.openweathermap.org/\
-data/2.5/weather?q=${city_name},${country_code}&mode=xml&units=${unit_type}")
-	
-	weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
-data/2.5/forecast/daily?q=${city_name},${country_code}&mode=xml&\
-units=${unit_type}&cnt=4")
+	if ((manual_setting == 0))
+	then
+		current_weather_data=$(curl -s "http://api.openweathermap.org/\
+data/2.5/weather?lat=${latitude}&lon=${longitude}&mode=xml&\
+units=${unit_type}")
+		
+		weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
+data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=4&mode=xml\
+&units=${unit_type}")
+	else
+		current_weather_data=$(curl -s "http://api.openweathermap.org/\
+data/2.5/weather?q=${city_name// /%20},${country_code}&mode=xml\
+&units=${unit_type}")
+		
+		weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
+data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
+&units=${unit_type}")
+	fi
 	
 	temperature_value=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<temperature value=\")[^\.]*")
@@ -43,9 +72,6 @@ units=${unit_type}&cnt=4")
 		grep -o -P -i -m 1 "(?<=<time day=\"${day1_date}\">).*?(?=</time>)")
 	
 	# day1 weather condition
-	
-	# <symbol number="500" name="light rain" var="10"/>
-	
 	day1[1]=$(echo ${day1_forecast_data} | \
 		grep -o -P -i "(?<=<symbol number=\"...\" name=\")[^\"]*")
 	

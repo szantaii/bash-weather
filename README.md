@@ -10,6 +10,9 @@
  5. How to use
   * Get bash-weather
   * Start bash-weather
+     * Command-line options
+         * Examples
+  * Keyboard functions
  6. Further development
 
 ***
@@ -30,6 +33,7 @@ This project is licensed under GNU General Public License Version 3+. For the fu
  * A terminal with a size of at least 80×22 (80 columns, 22 rows).
  * `bc` basic calculator for floating point arithmetic. Can be found in the `bc` package on major Linux distributions.
  * `curl` command-line tool for getting data using HTTP protocol. cURL can be found in the `curl` package on major Linux distributions.
+ * `grep` command-line tool used for parsing downloaded XML data. `grep` can be found in the `grep` package on major Linux distributions.
  * `tput` for terminal handling. Can be found in different `ncurses` packages on Linux distributions (see the table below for major distros).
 
 | Distrbution | Package name    |
@@ -69,7 +73,33 @@ Use the Bash interpreter to start the script:
 bash bash-weather.sh
 ```
 
-`TODO:` Keyboard commands' description
+#### Command-line options
+
+bash-weather can be started with the following command line options:
+
+ * `-h` Prints a simple help to the screen, and exits.
+ * `-t city_name` Sets the city for manual weather lookup.
+ * `-c country_code` Sets the country for manual weather lookup.
+
+##### Examples
+
+Get the current weather in Las Vegas:
+
+```bash
+bash bash-weather.sh -t "Las Vegas" -c US
+```
+
+_Note: don't forget to enclose city names that consist of more than one word within quotes._
+
+Get the current weather in London:
+
+```bash
+bash bash-weather.sh -t London -c UK
+```
+
+### Keyboard functions
+
+If you downloaded, and started bash-weather then you'll see a screen like this:
 
 ```text
                                   bash-weather                                  
@@ -96,8 +126,14 @@ bash bash-weather.sh
                                                      Change unit: 'c', Quit: 'q'
 ```
 
+_Note: bash-weather will refresh the current weather and forecast every 1 minute._
+
+Keyboard functions:
+
+ * `c` Changes the measurement unit (Celsius → Fahrenheit, Fahrenheit → Celsius).
+ * `q` Quits bash-weather.
+
 ## 6. Further development
 
- * Add licensing information to each file.
  * Add code comments.
 
