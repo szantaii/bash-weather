@@ -98,6 +98,6 @@ bash bash-weather.sh
 
 ## 6. Further development
 
- * Add licensing information to each file.
+ * Add command-line options to set desired location (instead of getting location based on current IP).
  * Add code comments.
 
