@@ -47,7 +47,7 @@ data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
 	fi
 	
 	temperature_value=$(echo ${current_weather_data} | \
-		grep -o -P -i "(?<=<temperature value=\")[^\.]*")
+		grep -o -P -i "(?<=<temperature value=\")[^(\"|\.)]*")
 	
 	wind_value=$(echo ${current_weather_data} | \
 		grep -o -P -i "(?<=<speed value=\")[^\"]*")
@@ -78,12 +78,12 @@ data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
 	# day1 min temperature
 	day1[2]=$(echo ${day1_forecast_data} | \
 		grep -o -P -i "(?<=<temperature)[^/]*" | \
-		grep -o -P -i "(?<=min=\")[^\.]*")
+		grep -o -P -i "(?<=min=\")[^(\.|\")]*")
 	
 	# day1 max temperature
 	day1[3]=$(echo ${day1_forecast_data} | \
 		grep -o -P -i "(?<=<temperature)[^/]*" | \
-		grep -o -P -i "(?<=max=\")[^\.]*")
+		grep -o -P -i "(?<=max=\")[^(\.|\")]*")
 	
 	# day2 name
 	day2[0]=$(get_day_of_week $(date --date="2 days" +%w))
@@ -100,12 +100,12 @@ data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
 	# day2 min temperature
 	day2[2]=$(echo ${day2_forecast_data} | \
 		grep -o -P -i "(?<=<temperature)[^/]*" | \
-		grep -o -P -i "(?<=min=\")[^\.]*")
+		grep -o -P -i "(?<=min=\")[^(\.|\")]*")
 	
 	# day2 max temperature
 	day2[3]=$(echo ${day2_forecast_data} | \
 		grep -o -P -i "(?<=<temperature)[^/]*" | \
-		grep -o -P -i "(?<=max=\")[^\.]*")
+		grep -o -P -i "(?<=max=\")[^(\.|\")]*")
 	
 	# day3 name
 	day3[0]=$(get_day_of_week $(date --date="3 days" +%w))
@@ -122,11 +122,11 @@ data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
 	# day3 min temperature
 	day3[2]=$(echo ${day3_forecast_data} | \
 		grep -o -P -i "(?<=<temperature)[^/]*" | \
-		grep -o -P -i "(?<=min=\")[^\.]*")
+		grep -o -P -i "(?<=min=\")[^(\.|\")]*")
 	
 	# day3 max temperature
 	day3[3]=$(echo ${day3_forecast_data} | \
 		grep -o -P -i "(?<=<temperature)[^/]*" | \
-		grep -o -P -i "(?<=max=\")[^\.]*")
+		grep -o -P -i "(?<=max=\")[^(\.|\")]*")
 }
 
