@@ -23,7 +23,21 @@ print_wind()
 	
 	if [[ "${unit_type}" == "metric" ]]
 	then
-		wind_value=$(echo "scale=1; ${wind_value} * ${conversion_unit}" | bc -l)
+		wind_value=$(echo "scale=1; ${wind_value} * ${conversion_unit}" | bc)
+	fi
+	
+	echo ${wind_value} | grep -o [\.] > /dev/null
+	
+	if (($? == 0))
+	then
+		wind_value=$(echo ${wind_value} | grep -o -i [0-9]\..)
+		
+		echo ${wind_value:-2} | grep \.0 > /dev/null
+		
+		if (($? == 0))
+		then
+			wind_value=${wind_value%%??}
+		fi
 	fi
 	
 	tput cup $((top_padding + 10)) $((left_padding + 1)) >> ${buffer}
