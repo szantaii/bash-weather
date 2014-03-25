@@ -27,4 +27,3 @@ clear_help()
 		printf " " >> ${buffer}
 	done
 }
-

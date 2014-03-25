@@ -330,4 +330,3 @@ init()
 		wind_unit="mph"
 	fi
 }
-

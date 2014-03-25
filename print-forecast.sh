@@ -133,4 +133,3 @@ print_forecast()
 	
 	printf "${day3_max_temperature}" >> ${buffer}
 }
-

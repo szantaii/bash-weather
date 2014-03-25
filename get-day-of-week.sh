@@ -43,4 +43,3 @@ get_day_of_week()
 			;;
 	esac
 }
-

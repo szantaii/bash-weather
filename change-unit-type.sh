@@ -33,4 +33,3 @@ change_unit_type()
 		wind_unit="km/h"
 	fi
 }
-

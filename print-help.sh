@@ -26,4 +26,3 @@ print_help()
 	
 	printf "%s${help_text}" >> ${buffer}
 }
-

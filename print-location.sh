@@ -32,6 +32,3 @@ print_location()
 		printf "%s_" >> ${buffer}
 	done
 }
-
-
-

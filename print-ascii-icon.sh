@@ -121,4 +121,3 @@ print_ascii_icon()
 			;;
 	esac
 }
-
