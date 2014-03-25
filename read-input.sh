@@ -58,4 +58,3 @@ read_input()
 		esac
 	fi
 }
-

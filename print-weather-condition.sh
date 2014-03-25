@@ -35,4 +35,3 @@ print_weather_condition()
 	
 	printf "${weather_condition}" >> ${buffer}
 }
-

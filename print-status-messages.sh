@@ -35,4 +35,3 @@ print_refresh_message()
 	
 	printf "%s${message_text}" >> ${buffer}
 }
-

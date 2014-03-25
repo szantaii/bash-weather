@@ -129,4 +129,3 @@ data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
 		grep -o -P -i "(?<=<temperature)[^/]*" | \
 		grep -o -P -i "(?<=max=\")[^(\.|\")]*")
 }
-

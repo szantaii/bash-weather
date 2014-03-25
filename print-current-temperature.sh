@@ -119,4 +119,3 @@ print_current_temperature()
 		printf "%s${temperature_text[${i}]}" >> ${buffer}
 	done
 }
-

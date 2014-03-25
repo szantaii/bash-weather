@@ -44,4 +44,3 @@ print_wind()
 	
 	printf "wind: ${wind_value} ${wind_unit}, ${wind_direction}" >> ${buffer}
 }
-

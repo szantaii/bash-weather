@@ -43,4 +43,3 @@ ${country_name}"
 	longitude=$(echo ${geolocation_data} | \
 		grep -o -P -i "(?<=<Longitude>).*(?=</Longitude>)")
 }
-

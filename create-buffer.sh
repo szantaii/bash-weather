@@ -51,4 +51,3 @@ create_buffer()
 		printf "" > $buffer
 	fi
 }
-

@@ -101,36 +101,35 @@ print_forecast()
 		$((left_padding + 11 - ${#day1_min_temperature})) \
 		>> ${buffer}
 	
-	printf "${day1_min_temperature}" >> ${buffer}
+	printf "%s${day1_min_temperature}" >> ${buffer}
 	
 	tput cup $((top_padding + 20)) \
 		$((left_padding + 11 - ${#day1_max_temperature})) \
 		>> ${buffer}
 	
-	printf "${day1_max_temperature}" >> ${buffer}
+	printf "%s${day1_max_temperature}" >> ${buffer}
 	
 	tput cup $((top_padding + 19)) \
 		$((left_padding + 23 - ${#day2_min_temperature})) \
 		>> ${buffer}
 	
-	printf "${day2_min_temperature}" >> ${buffer}
+	printf "%s${day2_min_temperature}" >> ${buffer}
 	
 	tput cup $((top_padding + 20)) \
 		$((left_padding + 23 - ${#day2_max_temperature})) \
 		>> ${buffer}
 	
-	printf "${day2_max_temperature}" >> ${buffer}
+	printf "%s${day2_max_temperature}" >> ${buffer}
 	
 	tput cup $((top_padding + 19)) \
 		$((left_padding + 35 - ${#day3_min_temperature})) \
 		>> ${buffer}
 	
-	printf "${day3_min_temperature}" >> ${buffer}
+	printf "%s${day3_min_temperature}" >> ${buffer}
 	
 	tput cup $((top_padding + 20)) \
 		$((left_padding + 35 - ${#day3_max_temperature})) \
 		>> ${buffer}
 	
-	printf "${day3_max_temperature}" >> ${buffer}
+	printf "%s${day3_max_temperature}" >> ${buffer}
 }
-

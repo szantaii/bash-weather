@@ -27,4 +27,3 @@ print_title()
 	
 	printf ${title_text} >> ${buffer}
 }
-

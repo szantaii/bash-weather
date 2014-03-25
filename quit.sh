@@ -28,4 +28,3 @@ quit()
 	# Exit with status '0'
 	exit 0
 }
-

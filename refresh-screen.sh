@@ -27,4 +27,3 @@ refresh_screen()
 	
 	printf "" > ${buffer}
 }
-

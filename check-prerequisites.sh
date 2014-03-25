@@ -113,4 +113,3 @@ ${min_term_height} lines).\n"
 		exit 2
 	fi
 }
-
