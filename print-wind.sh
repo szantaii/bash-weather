@@ -38,6 +38,11 @@ print_wind()
 		then
 			wind_value=${wind_value%%??}
 		fi
+		
+		if [ "${wind_value: -1}" == "." ]
+		then
+			wind_value="${wind_value::-1}"
+		fi
 	fi
 	
 	tput cup $((top_padding + 10)) $((left_padding + 1)) >> ${buffer}

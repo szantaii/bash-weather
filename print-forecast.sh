@@ -22,7 +22,6 @@ print_forecast()
 	local forecast_title="3 Day Forecast ____________________"
 	local forecast_days="    ${day1[0]}         ${day2[0]}         ${day3[0]}"
 	local forecast_line="___________ ___________ ___________"
-	# local forecast_weather_condition=("${day1[1],,}", "${day2[1],,}", "${day3[1],,}")
 	local forecast_weather_condition=()
 	local day1_min_temperature="${day1[2]} ${temperature_unit}"
 	local day1_max_temperature="${day1[3]} ${temperature_unit}"
@@ -101,35 +100,197 @@ print_forecast()
 		$((left_padding + 11 - ${#day1_min_temperature})) \
 		>> ${buffer}
 	
+	if ${colored_output}
+	then
+		if [[ "${unit_type}" == "metric" ]]
+		then
+			if ((${day1[2]} >= 30))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day1[2]} <= 0))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		else
+			if ((${day1[2]} >= 86))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day1[2]} <= 32))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		fi
+	fi
+	
 	printf "%s${day1_min_temperature}" >> ${buffer}
+	
+	if ${colored_output}
+	then
+		printf "%s${foreground_color_white}" >> ${buffer}
+	fi
 	
 	tput cup $((top_padding + 20)) \
 		$((left_padding + 11 - ${#day1_max_temperature})) \
 		>> ${buffer}
 	
+	if ${colored_output}
+	then
+		if [[ "${unit_type}" == "metric" ]]
+		then
+			if ((${day1[3]} >= 30))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day1[3]} <= 0))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		else
+			if ((${day1[3]} >= 86))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day1[3]} <= 32))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		fi
+	fi
+	
 	printf "%s${day1_max_temperature}" >> ${buffer}
+	
+	if ${colored_output}
+	then
+		printf "%s${foreground_color_white}" >> ${buffer}
+	fi
 	
 	tput cup $((top_padding + 19)) \
 		$((left_padding + 23 - ${#day2_min_temperature})) \
 		>> ${buffer}
 	
+	if ${colored_output}
+	then
+		if [[ "${unit_type}" == "metric" ]]
+		then
+			if ((${day2[2]} >= 30))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day2[2]} <= 0))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		else
+			if ((${day2[2]} >= 86))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day2[2]} <= 32))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		fi
+	fi
+	
 	printf "%s${day2_min_temperature}" >> ${buffer}
+	
+	if ${colored_output}
+	then
+		printf "%s${foreground_color_white}" >> ${buffer}
+	fi
 	
 	tput cup $((top_padding + 20)) \
 		$((left_padding + 23 - ${#day2_max_temperature})) \
 		>> ${buffer}
 	
+	if ${colored_output}
+	then
+		if [[ "${unit_type}" == "metric" ]]
+		then
+			if ((${day2[3]} >= 30))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day2[3]} <= 0))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		else
+			if ((${day2[3]} >= 86))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day2[3]} <= 32))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		fi
+	fi
+	
 	printf "%s${day2_max_temperature}" >> ${buffer}
+	
+	if ${colored_output}
+	then
+		printf "%s${foreground_color_white}" >> ${buffer}
+	fi
 	
 	tput cup $((top_padding + 19)) \
 		$((left_padding + 35 - ${#day3_min_temperature})) \
 		>> ${buffer}
 	
+	if ${colored_output}
+	then
+		if [[ "${unit_type}" == "metric" ]]
+		then
+			if ((${day3[2]} >= 30))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day3[2]} <= 0))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		else
+			if ((${day3[2]} >= 86))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day3[2]} <= 32))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		fi
+	fi
+	
 	printf "%s${day3_min_temperature}" >> ${buffer}
+	
+	if ${colored_output}
+	then
+		printf "%s${foreground_color_white}" >> ${buffer}
+	fi
 	
 	tput cup $((top_padding + 20)) \
 		$((left_padding + 35 - ${#day3_max_temperature})) \
 		>> ${buffer}
 	
+	if ${colored_output}
+	then
+		if [[ "${unit_type}" == "metric" ]]
+		then
+			if ((${day3[3]} >= 30))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day3[3]} <= 0))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		else
+			if ((${day3[3]} >= 86))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((${day3[3]} <= 32))
+			then
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		fi
+	fi
+	
 	printf "%s${day3_max_temperature}" >> ${buffer}
+	
+	if ${colored_output}
+	then
+		printf "%s${foreground_color_white}" >> ${buffer}
+	fi
 }

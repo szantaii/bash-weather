@@ -111,6 +111,32 @@ print_current_temperature()
 		done
 	fi
 	
+	if ${colored_output}
+	then
+		if [[ "${unit_type}" == "metric" ]]
+		then
+			if ((temperature_value >= 30))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((temperature_value < 30 && temperature_value > 0))
+			then
+				printf "%s${foreground_color_green}" >> ${buffer}
+			else
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		else
+			if ((temperature_value >= 86))
+			then
+				printf "%s${foreground_color_red}" >> ${buffer}
+			elif ((temperature_value < 86 && temperature_value > 32))
+			then
+				printf "%s${foreground_color_green}" >> ${buffer}
+			else
+				printf "%s${foreground_color_blue}" >> ${buffer}
+			fi
+		fi
+	fi
+	
 	for ((i=0; i < ${#temperature_text[@]}; i++))
 	do
 		tput cup $((3 + top_padding + ${i})) \
@@ -118,4 +144,9 @@ print_current_temperature()
 		
 		printf "%s${temperature_text[${i}]}" >> ${buffer}
 	done
+	
+	if ${colored_output}
+	then
+		printf "%s${foreground_color_white}" >> ${buffer}
+	fi
 }

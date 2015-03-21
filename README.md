@@ -13,7 +13,6 @@
      * Command-line options
          * Examples
   * Keyboard functions
- 6. Further development
 
 ***
 
@@ -80,6 +79,7 @@ bash-weather can be started with the following command line options:
  * `-h` Prints a simple help to the screen, and exits.
  * `-t city_name` Sets the city for manual weather lookup.
  * `-c country_code` Sets the country for manual weather lookup.
+ * `-f` Enables colored output.
 
 ##### Examples
 
@@ -96,6 +96,14 @@ Get the current weather in London:
 ```bash
 bash bash-weather.sh -t London -c UK
 ```
+
+Get the current weather in Christchurch, New Zealand with colored output:
+
+```bash
+bash bash-weather.sh -c NZ -t Christchurch -f
+```
+
+_Note: the terminal emulator must support 16 colors (e.g. xterm, GNOME Terminal, Konsole); displayed colors may vary in different terminal emulators and by custom profile settings._
 
 ### Keyboard functions
 
@@ -126,13 +134,9 @@ If you downloaded, and started bash-weather then you'll see a screen like this:
                                                      Change unit: 'c', Quit: 'q'
 ```
 
-_Note: bash-weather will refresh the current weather and forecast every 1 minute._
+_Note: bash-weather will refresh the current weather and forecast every minute._
 
 Keyboard functions:
 
  * `c` Changes the measurement unit (Celsius → Fahrenheit, Fahrenheit → Celsius).
  * `q` Quits bash-weather.
-
-## 6. Further development
-
- * Add code comments.
