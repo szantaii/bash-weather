@@ -20,11 +20,27 @@
 # Save terminal screen
 tput smcup
 
+# Hide cursor
+tput civis
+
 term_width=$(tput cols)
 term_height=$(tput lines)
 
 min_term_width=80
 min_term_height=22
+
+colored_output=false
+
+background_color_default=""
+background_color_black=""
+foreground_color_default=""
+foreground_color_white=""
+foreground_color_red=""
+foreground_color_blue=""
+foreground_color_yellow=""
+foreground_color_green=""
+foreground_color_light_gray=""
+foreground_color_dark_gray=""
 
 buffer_name=""
 buffer_directory=""
@@ -75,7 +91,6 @@ declare -a ascii_font_o
 declare -a ascii_font_C
 declare -a ascii_font_F
 
-
 declare -a ascii_icon_clear_sky_day
 declare -a ascii_icon_clear_sky_night
 declare -a ascii_icon_few_clouds_day
@@ -116,9 +131,12 @@ source "${script_directory}/quit.sh"
 check_prerequisites
 
 # Parse option flags and their arguments
-while getopts ":t:c:h" option
+while getopts ":t:c:h:f" option
 do
 	case ${option} in
+		f)
+			colored_output=true
+			;;
 		h)
 			tput rmcup
 			printf "bash-weather Copyright (C) Istvan Szantai \
