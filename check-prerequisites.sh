@@ -31,6 +31,9 @@ check_prerequisites()
 	# error message and exit with status code '1'
 	if (($? != 0))
 	then
+		# Restore cursor
+		tput cnorm
+		
 		# Restore terminal screen
 		tput rmcup
 		
@@ -51,6 +54,9 @@ openSUSE            ncurses-utils\n    Ubuntu              ncurses-bin\n"
 	# error message and exit with status code '1'
 	if (($? != 0))
 	then
+		# Restore cursor
+		tput cnorm
+		
 		# Restore terminal screen
 		tput rmcup
 		
@@ -68,6 +74,9 @@ Linux distributions.\n"
 	# error message and exit with status code '1'
 	if (($? != 0))
 	then
+		# Restore cursor
+		tput cnorm
+		
 		# Restore terminal screen
 		tput rmcup
 		
@@ -85,6 +94,9 @@ Linux distributions.\n"
 	# error message and exit with status code '1'
 	if (($? != 0))
 	then
+		# Restore cursor
+		tput cnorm
+		
 		# Restore terminal screen
 		tput rmcup
 		
@@ -100,9 +112,12 @@ distributions.\n"
 	#
 	# If either terminal width or height is less than
 	# $min_term_width and $min_term_height print error message
-	# and exit with status code '3'
+	# and exit with status code '2'
 	if ((term_width < min_term_width || term_height < min_term_height))
 	then
+		# Restore cursor
+		tput cnorm
+		
 		# Restore terminal screen
 		tput rmcup
 		
@@ -111,5 +126,25 @@ ${min_term_width}x${min_term_height} (${min_term_width} columns, \
 ${min_term_height} lines).\n"
 		
 		exit 2
+	fi
+	
+	# Check if OpenWeatherMap API key is specified in the command-line
+	# or in the openweathermap.key file
+	#
+	# If no API key is specified then exit with status code '3'
+	if [[ "${api_key}" == "" ]] && (($(grep -c "^[0-9A-Za-z]\+$" \
+"${script_directory}/openweathermap.key") != 1))
+	then
+		# Restore cursor
+		tput cnorm
+		
+		# Restore terminal screen
+		tput rmcup
+		
+		printf "bash-weather needs an API key to be able to get weather data \
+from OpenWeatherMap. \
+See 'README.md' for further details about the OpenWeatherMap API key.\n"
+		
+		exit 3
 	fi
 }

@@ -346,4 +346,11 @@ init()
 		temperature_unit="F"
 		wind_unit="mph"
 	fi
+	
+	# Read OpenWeatherMap API key
+	if [[ "${api_key}" == "" ]]
+	then
+		api_key=$(grep "^[0-9A-Za-z]\+$" \
+"${script_directory}/openweathermap.key")
+	fi
 }

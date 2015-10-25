@@ -21,13 +21,14 @@ main_loop()
 {
 	init
 	
+	if ((manual_setting == 0))
+	then
+		get_ip
+		get_geolocation_data
+	fi
+	
 	while true
 	do
-		if ((manual_setting == 0))
-		then
-			get_ip
-			get_geolocation_data
-		fi
 		get_weather_data
 		
 		clear >> ${buffer}
