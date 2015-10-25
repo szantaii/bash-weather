@@ -3,16 +3,16 @@
 ***
 
 ## Contents
- 1. About
- 2. License
- 3. Prerequisites
- 4. Exit status
- 5. How to use
-  * Get bash-weather
-  * Start bash-weather
-     * Command-line options
-         * Examples
-  * Keyboard functions
+ 1. [About](#about)
+ 2. [License](#license)
+ 3. [Prerequisites](#prerequisites)
+ 4. [Exit status](#exit-status)
+ 5. [How to use](#how-to-use)
+  * [Get bash-weather](#get-bash-weather)
+  * [Start bash-weather](#start-bash-weather)
+     * [Command-line options](#command-line-options)
+         * [Examples](#examples)
+  * [Keyboard functions](#keyboard-functions)
 
 ***
 
