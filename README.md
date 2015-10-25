@@ -3,11 +3,11 @@
 ***
 
 ## Contents
- 1. [About](#about)
- 2. [License](#license)
- 3. [Prerequisites](#prerequisites)
- 4. [Exit status](#exit-status)
- 5. [How to use](#how-to-use)
+ 1. [About](#1-about)
+ 2. [License](#2-license)
+ 3. [Prerequisites](#3-prerequisites)
+ 4. [Exit status](#4-exit-status)
+ 5. [How to use](#5-how-to-use)
   * [Get bash-weather](#get-bash-weather)
   * [Start bash-weather](#start-bash-weather)
      * [Command-line options](#command-line-options)
