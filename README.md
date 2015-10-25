@@ -3,16 +3,16 @@
 ***
 
 ## Contents
- 1. About
- 2. License
- 3. Prerequisites
- 4. Exit status
- 5. How to use
-  * Get bash-weather
-  * Start bash-weather
-     * Command-line options
-         * Examples
-  * Keyboard functions
+ 1. [About](#about)
+ 2. [License](#license)
+ 3. [Prerequisites](#prerequisites)
+ 4. [Exit status](#exit-status)
+ 5. [How to use](#how-to-use)
+  * [Get bash-weather](#get-bash-weather)
+  * [Start bash-weather](#start-bash-weather)
+     * [Command-line options](#command-line-options)
+         * [Examples](#examples)
+  * [Keyboard functions](#keyboard-functions)
 
 ***
 
@@ -28,6 +28,7 @@ This project is licensed under GNU General Public License Version 3+. For the fu
 
 ## 3. Prerequisites
 
+ * OpenWeatherMap API key ([http://openweathermap.org/appid](http://openweathermap.org/appid)).
  * Bash shell ≥ 4.2.
  * A terminal with a size of at least 80×22 (80 columns, 22 rows).
  * `bc` basic calculator for floating point arithmetic. Can be found in the `bc` package on major Linux distributions.
@@ -46,8 +47,9 @@ This project is licensed under GNU General Public License Version 3+. For the fu
 ## 4. Exit status
 
  * `0` bash-weather exited successfully.
- * `1` Missing necessary programs to run bash-weather.
+ * `1` Missing necessary programs to run bash-weather, or wrong command-line arguments.
  * `2` Too small terminal size (< 80×22).
+ * `3` Missing OpenWeatherMap API key.
 
 ## 5. How to use
 
@@ -64,6 +66,14 @@ Enter bash-weather's directory:
 ```bash
 cd bash-weather
 ```
+
+Add your OpenWeatherMap API key to the end of the `openweathermap.key` file, e.g.
+
+```text
+# Add your OpenWeatherMap API key below (http://openweathermap.org/appid)
+0123dummy456key789
+```
+
 ### Start bash-weather
 
 Use the Bash interpreter to start the script:
@@ -76,10 +86,13 @@ bash bash-weather.sh
 
 bash-weather can be started with the following command line options:
 
+ * `-k` Specifies OpenWeatherMap API key from the command-line.
  * `-h` Prints a simple help to the screen, and exits.
  * `-t city_name` Sets the city for manual weather lookup.
  * `-c country_code` Sets the country for manual weather lookup.
  * `-f` Enables colored output.
+
+_Note: If the OpenWeatherMap API key is specified from the command-line, it will override the API key set in the `openweathermap.key` file._
 
 ##### Examples
 
@@ -95,6 +108,12 @@ Get the current weather in London:
 
 ```bash
 bash bash-weather.sh -t London -c UK
+```
+
+Get the current weather at your current location by specifying the OpenWeatherMap API key from the command-line:
+
+```bash
+bash bash-weather.sh -k 0123dummy456key789
 ```
 
 Get the current weather in Christchurch, New Zealand with colored output:

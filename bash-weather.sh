@@ -49,6 +49,8 @@ buffer=""
 left_padding=""
 top_padding=""
 
+api_key=""
+
 current_ip=""
 
 geolocation_data=""
@@ -128,22 +130,24 @@ source "${script_directory}/read-input.sh"
 source "${script_directory}/main-loop.sh"
 source "${script_directory}/quit.sh"
 
-check_prerequisites
-
 # Parse option flags and their arguments
-while getopts ":t:c:h:f" option
+while getopts ":k:t:c:hf" option
 do
 	case ${option} in
 		f)
 			colored_output=true
 			;;
 		h)
+			tput cnorm
 			tput rmcup
 			printf "bash-weather Copyright (C) Istvan Szantai \
 \x3c\x73\x7a\x61\x6e\x74\x61\x69\x69\x40\x73\x69\x64\x65\x6e\x6f\
 \x74\x65\x2e\x68\x75\x3e 2013\n\
 For more detailed help please see the file 'README.md'.\n"
 			exit 0
+			;;
+		k)
+			api_key=${OPTARG}
 			;;
 		t)
 			city_name="${OPTARG}"
@@ -152,6 +156,7 @@ For more detailed help please see the file 'README.md'.\n"
 			country_code=${OPTARG}
 			;;
 		:)
+			tput cnorm
 			tput rmcup
 			
 			if [[ "${OPTARG}" == "t" ]]
@@ -167,8 +172,9 @@ Please specify a country code.\n"
 			exit 1
 			;;
 		\?)
+			tput cnorm
 			tput rmcup
-			printf "Invalid option: -${OPTARG}.\n"
+			printf "Invalid option: -${OPTARG}\n"
 			exit 1
 			;;
 	esac
@@ -179,5 +185,7 @@ then
 	manual_setting=1
 	country_name="${country_code}"
 fi
+
+check_prerequisites
 
 main_loop
