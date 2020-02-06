@@ -10,7 +10,7 @@ get_weather_data()
     local _day2_forecast_data
     local _day3_forecast_data
 
-    if ! manual_setting
+    if ! ${manual_setting}
     then
         current_weather_data=$(curl -s "http://api.openweathermap.org/\
 data/2.5/weather?lat=${latitude}&lon=${longitude}&mode=xml&\
@@ -20,11 +20,11 @@ units=${unit_type}&APPID=${api_key}" )
 data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=4&mode=xml\
 &units=${unit_type}&APPID=${api_key}")
     else
-        current_weather_data=$(curl -s "http://api.openweathermap.org/\
+        current_weather_data=$(curl -s "https://api.openweathermap.org/\
 data/2.5/weather?q=${city_name// /%20},${country_code}&mode=xml\
 &units=${unit_type}&APPID=${api_key}")
 
-        weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
+        weather_forecast_data=$(curl -s "https://api.openweathermap.org/\
 data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
 &units=${unit_type}&APPID=${api_key}")
     fi

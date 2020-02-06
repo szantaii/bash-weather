@@ -14,7 +14,7 @@ main_loop()
     do
         get_weather_data
 
-        clear >> ${buffer}
+        clear >> "${buffer}"
 
         print_title
         print_location
