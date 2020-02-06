@@ -1,34 +1,34 @@
 #!/bin/bash
 
-read_input()
+read__input()
 {
-    local input
-    local timeout=0
+    local _input
+    local _timeout=0
 
-    read -sn1 -t 57 input
+    read -sn1 -t 57 _input
 
     if (($? > 128))
     then
-        timeout=1
+        _timeout=1
     fi
 
-    while ((timeout != 1)) && [[ "${input}" != "q" && "${input}" != "c" ]]
+    while ((_timeout != 1)) && [[ "${_input}" != "q" && "${_input}" != "c" ]]
     do
-        read -sn1 -t 57 input
+        read -sn1 -t 57 _input
 
         if (($? > 128))
         then
-            timeout=1
+            _timeout=1
         fi
     done
 
-    if ((timeout == 1))
+    if ((_timeout == 1))
     then
         clear_help
         print_refresh_message
         refresh_screen
     else
-        case ${input} in
+        case ${_input} in
         'q')
             break
             ;;

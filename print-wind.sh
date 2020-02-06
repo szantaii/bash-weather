@@ -2,24 +2,24 @@
 
 print_wind()
 {
-    local conversion_unit="3.6"
+    local _conversion_unit="3.6"
 
     if [[ "${unit_type}" == "metric" ]]
     then
-        wind_value=$(echo "scale=1; ${wind_value} * ${conversion_unit}" | bc)
+        wind_value="$(echo "scale=1; ${wind_value} * ${_conversion_unit}" | bc)"
     fi
 
-    echo ${wind_value} | grep -o [\.] > /dev/null
+    echo "${wind_value} "| grep -o [\.] > /dev/null 2>&1
 
     if (($? == 0))
     then
-        wind_value=$(echo ${wind_value} | grep -o -i [0-9]\..)
+        wind_value="$(echo "${wind_value}" | grep -o -i [0-9]\..)"
 
-        echo ${wind_value:-2} | grep \.0 > /dev/null
+        echo "${wind_value:-2}" | grep \.0 > /dev/null 2>&1
 
         if (($? == 0))
         then
-            wind_value=${wind_value%%??}
+            wind_value="${wind_value%%??}"
         fi
 
         if [ "${wind_value: -1}" == "." ]
@@ -28,7 +28,9 @@ print_wind()
         fi
     fi
 
-    tput cup $((top_padding + 10)) $((left_padding + 1)) >> ${buffer}
+    {
+        tput cup $((top_padding + 10)) $((left_padding + 1))
 
-    printf "wind: ${wind_value} ${wind_unit}, ${wind_direction}" >> ${buffer}
+        printf "%s" "wind: ${wind_value} ${wind_unit}, ${wind_direction}"
+    } >> "${buffer}"
 }

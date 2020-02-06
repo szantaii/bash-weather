@@ -4,7 +4,7 @@ main_loop()
 {
     init
 
-    if ((manual_setting == 0))
+    if ! manual_setting
     then
         get_ip
         get_geolocation_data

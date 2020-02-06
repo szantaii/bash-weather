@@ -20,8 +20,8 @@ init()
         foreground_color_light_gray="\e[37m"
         foreground_color_dark_gray="\e[90m"
 
-        printf "%s${background_color_black}" >> ${buffer}
-        printf "%s${foreground_color_white}" >> ${buffer}
+        printf "%s" "${background_color_black}" >> "${buffer}"
+        printf "%s" "${foreground_color_white}" >> "${buffer}"
     fi
 
     print_init_message
@@ -318,7 +318,7 @@ init()
     then
         unit_type="metric"
 
-        printf "${unit_type}" > "${script_directory}/unit_type"
+        printf "%s" "${unit_type}" > "${script_directory}/unit_type"
     fi
 
     if [[ "${unit_type}" == "metric" ]]

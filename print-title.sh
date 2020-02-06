@@ -2,11 +2,11 @@
 
 print_title()
 {
-    local title_text="bash-weather"
+    local _title_text="bash-weather"
 
-    tput cup ${top_padding} \
-        $((left_padding + ((min_term_width - ${#title_text}) / 2))) \
-        >> ${buffer}
+    {
+        tput cup "${top_padding}" $((left_padding + ((min_term_width - ${#_title_text}) / 2)))
 
-    printf ${title_text} >> ${buffer}
+        printf "%s" "${_title_text}"
+    } >> "${buffer}"
 }

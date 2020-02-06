@@ -3,7 +3,7 @@
 quit()
 {
     # Delete screen buffer file
-    rm ${buffer}
+    rm -f "${buffer}"
 
     # Restore cursor
     tput cnorm

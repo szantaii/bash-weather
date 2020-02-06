@@ -2,5 +2,5 @@
 
 get_ip()
 {
-    current_ip=$(curl -s "http://checkip.dyndns.org/" | grep -o -E "[0-9\.]+")
+    current_ip="$(ip -o route get 8.8.8.8 | sed -n 's/.*src \([0-9\.]\+\) uid.*/\1/p')"
 }

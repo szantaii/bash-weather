@@ -8,11 +8,7 @@ check_prerequisites()
     fi
 
     # Check if 'tput' command is available
-    which tput > /dev/null
-
-    # If 'tput' is not available, then print
-    # error message and exit with status code '1'
-    if (($? != 0))
+    if ! command -v tput > /dev/null
     then
         # Restore cursor
         tput cnorm
@@ -31,11 +27,7 @@ openSUSE            ncurses-utils\n    Ubuntu              ncurses-bin\n"
     fi
 
     # Check if 'curl' command is available
-    which curl > /dev/null
-
-    # If 'curl' is not available, then print
-    # error message and exit with status code '1'
-    if (($? != 0))
+    if ! command -v curl > /dev/null
     then
         # Restore cursor
         tput cnorm
@@ -51,11 +43,7 @@ Linux distributions.\n"
     fi
 
     # Check if 'grep' command is available
-    which grep > /dev/null
-
-    # If 'grep' is not available, then print
-    # error message and exit with status code '1'
-    if (($? != 0))
+    if ! command -v grep > /dev/null
     then
         # Restore cursor
         tput cnorm
@@ -71,11 +59,7 @@ Linux distributions.\n"
     fi
 
     # Check if 'bc' command is available
-    which bc > /dev/null
-
-    # If 'bc' is not available, then print
-    # error message and exit with status code '1'
-    if (($? != 0))
+    if ! command -v bc > /dev/null
     then
         # Restore cursor
         tput cnorm
@@ -104,7 +88,7 @@ distributions.\n"
         # Restore terminal screen
         tput rmcup
 
-        printf "bash-weather needs a terminal with size of at least \
+        printf "%s" "bash-weather needs a terminal with size of at least \
 ${min_term_width}x${min_term_height} (${min_term_width} columns, \
 ${min_term_height} lines).\n"
 
@@ -125,8 +109,8 @@ ${min_term_height} lines).\n"
         tput rmcup
 
         printf "bash-weather needs an API key to be able to get weather data \
-from OpenWeatherMap. \
-See 'README.md' for further details about the OpenWeatherMap API key.\n"
+from OpenWeatherMap. See 'README.md' for further details about the \
+OpenWeatherMap API key.\n"
 
         exit 3
     fi

@@ -11,10 +11,10 @@ print_weather_condition()
 
     weather_condition="${weather_condition^^}"
 
-    tput cup $((top_padding + 19)) \
-        $((left_padding + 38 + \
-        ((min_term_width - 38 - ${#weather_condition}) / 2))) \
-        >> ${buffer}
+    {
+        tput cup $((top_padding + 19)) \
+            $((left_padding + 38 + ((min_term_width - 38 - ${#weather_condition}) / 2)))
 
-    printf "${weather_condition}" >> ${buffer}
+        printf "%s" "${weather_condition}"
+    } >> "${buffer}"
 }

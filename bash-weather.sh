@@ -72,7 +72,7 @@ weather_condition=""
 weather_condition_icon=""
 weather_forecast_data=""
 
-manual_setting=0
+manual_setting=false
 
 declare -a day1
 declare -a day2
@@ -105,7 +105,7 @@ declare -a ascii_icon_thunderstorm
 declare -a ascii_icon_snow
 declare -a ascii_icon_mist
 
-script_directory=$(dirname "$0")
+script_directory="$(dirname "$0")"
 
 source "${script_directory}/check-prerequisites.sh"
 source "${script_directory}/create-buffer.sh"
@@ -147,13 +147,13 @@ For more detailed help please see the file 'README.md'.\n"
             exit 0
             ;;
         k)
-            api_key=${OPTARG}
+            api_key="${OPTARG}"
             ;;
         t)
             city_name="${OPTARG}"
             ;;
         c)
-            country_code=${OPTARG}
+            country_code="${OPTARG}"
             ;;
         :)
             tput cnorm
@@ -182,7 +182,7 @@ done
 
 if [[ "${city_name}" != "" && "${country_code}" != "" ]]
 then
-    manual_setting=1
+    manual_setting=true
     country_name="${country_code}"
 fi
 
