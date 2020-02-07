@@ -1,6 +1,6 @@
 #!/bin/bash
 
-print__location()
+print_location()
 {
     local _location="${city_name^^}, ${country_name^^} "
 

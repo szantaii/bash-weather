@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read__input()
+read_input()
 {
     local _input
     local _timeout=0
