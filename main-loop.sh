@@ -4,7 +4,7 @@ main_loop()
 {
     init
 
-    if ! manual_setting
+    if ! ${manual_setting}
     then
         get_ip
         get_geolocation_data
