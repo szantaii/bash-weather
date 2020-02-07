@@ -10,7 +10,7 @@ main_loop()
         get_geolocation_data
     fi
 
-    while true
+    while ! ${exit_main_loop}
     do
         get_weather_data
 

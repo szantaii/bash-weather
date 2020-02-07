@@ -49,6 +49,8 @@ buffer=""
 left_padding=""
 top_padding=""
 
+exit_main_loop=false
+
 api_key=""
 
 current_ip=""

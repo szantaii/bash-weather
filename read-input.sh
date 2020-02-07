@@ -30,7 +30,7 @@ read_input()
     else
         case ${_input} in
         'q')
-            break
+            exit_main_loop=true
             ;;
         'c')
             clear_help
