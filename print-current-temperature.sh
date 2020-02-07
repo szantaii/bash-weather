@@ -122,9 +122,11 @@ print_current_temperature()
 
     for ((i=0; i < ${#_temperature_text[@]}; i++))
     do
-        tput cup $((3 + top_padding + i)) $((1 + left_padding)) >> "${buffer}"
+        {
+            tput cup $((3 + top_padding + i)) $((1 + left_padding))
 
-        printf "%s" "${_temperature_text[${i}]}" >> "${buffer}"
+            printf "%s" "${_temperature_text[${i}]}"
+        } >> "${buffer}"
     done
 
     if ${colored_output}
