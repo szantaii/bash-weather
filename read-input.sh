@@ -5,7 +5,7 @@ read_input()
     local _input
     local _timeout=0
 
-    read -sn1 -t 57 _input
+    read -rsn1 -t 57 _input
 
     if (($? > 128))
     then
@@ -14,7 +14,7 @@ read_input()
 
     while ((_timeout != 1)) && [[ "${_input}" != "q" && "${_input}" != "c" ]]
     do
-        read -sn1 -t 57 _input
+        read -rsn1 -t 57 _input
 
         if (($? > 128))
         then
