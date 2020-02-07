@@ -27,6 +27,7 @@ data/2.5/forecast?q=${city_name// /%20},${country_code}&units=${unit_type}\
     wind_value="$(printf "%s" "${current_weather_data}" | jq -r '.wind.speed')"
 
     wind_direction="$(printf "%s" "${current_weather_data}" | jq -r '.wind.deg')"
+    wind_direction="$(get-wind-direction "${wind_direction}")"
 
     weather_condition="$(printf "%s" "${current_weather_data}" | jq -r '.weather[0].description')"
 
