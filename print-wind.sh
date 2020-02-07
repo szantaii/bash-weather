@@ -2,11 +2,9 @@
 
 print_wind()
 {
-    local _conversion_unit="3.6"
-
     if [[ "${unit_type}" == "metric" ]]
     then
-        wind_value="$(echo "scale=1; ${wind_value} * ${_conversion_unit}" | bc)"
+        wind_value="$(echo "scale=1; ${wind_value} * 3.6" | bc)"
     fi
 
     echo "${wind_value} "| grep -o [\.] > /dev/null 2>&1
