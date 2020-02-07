@@ -2,113 +2,90 @@
 
 get_weather_data()
 {
-    local _day1_date
-    local _day2_date
-    local _day3_date
-
-    local _day1_forecast_data
-    local _day2_forecast_data
-    local _day3_forecast_data
-
     if ! ${manual_setting}
     then
-        current_weather_data=$(curl -s "http://api.openweathermap.org/\
-data/2.5/weather?lat=${latitude}&lon=${longitude}&mode=xml&\
-units=${unit_type}&APPID=${api_key}" )
-
-        weather_forecast_data=$(curl -s "http://api.openweathermap.org/\
-data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=4&mode=xml\
-&units=${unit_type}&APPID=${api_key}")
-    else
         current_weather_data=$(curl -s "https://api.openweathermap.org/\
-data/2.5/weather?q=${city_name// /%20},${country_code}&mode=xml\
-&units=${unit_type}&APPID=${api_key}")
+data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${unit_type}\
+&APPID=${api_key}")
 
         weather_forecast_data=$(curl -s "https://api.openweathermap.org/\
-data/2.5/forecast/daily?q=${city_name// /%20},${country_code}&cnt=4&mode=xml\
-&units=${unit_type}&APPID=${api_key}")
+data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=${unit_type}\
+&APPID=${api_key}")
+    else
+        current_weather_data=$(curl -s "https://api.openweathermap.org/\
+data/2.5/weather?q=${city_name// /%20},${country_code}&units=${unit_type}\
+&APPID=${api_key}")
+
+        weather_forecast_data=$(curl -s "https://api.openweathermap.org/\
+data/2.5/forecast?q=${city_name// /%20},${country_code}&units=${unit_type}\
+&APPID=${api_key}")
     fi
 
-    temperature_value=$(echo ${current_weather_data} | \
-        grep -o -P -i "(?<=<temperature value=\")[^(\"|\.)]*")
+    temperature_value="$(printf "%s" "${current_weather_data}" | jq -r '.main.temp')"
+    temperature_value="$(printf "%.0f" "${temperature_value}")"
 
-    wind_value=$(echo ${current_weather_data} | \
-        grep -o -P -i "(?<=<speed value=\")[^\"]*")
+    wind_value="$(printf "%s" "${current_weather_data}" | jq -r '.wind.speed')"
 
-    wind_direction=$(echo ${current_weather_data} | \
-        grep -o -P -i "(?<=<direction value=\")[^/]*" | \
-        grep -o -P -i "(?<=code=\")[^\"]*")
+    wind_direction="$(printf "%s" "${current_weather_data}" | jq -r '.wind.deg')"
 
-    weather_condition=$(echo ${current_weather_data} | \
-        grep -o -P -i "(?<=<weather number=\"...\" value=\")[^\"]*")
+    weather_condition="$(printf "%s" "${current_weather_data}" | jq -r '.weather[0].description')"
 
-    weather_condition_icon=$(echo ${current_weather_data} | \
-        grep -o -P -i "(?<=<weather)[^/]*" | \
-        grep -o -P -i "(?<=icon=\")[^\"]*")
+    weather_condition_icon="$(printf "%s" "${current_weather_data}" | jq -r '.weather[0].icon')"
 
     # day1 name
     day1[0]="$(get_day_of_week "$(date --date="1 day" +%w)")"
 
-    _day1_date="$(date --date="1 day" +%Y-%m-%d)"
-
-    _day1_forecast_data=$(echo ${weather_forecast_data} | \
-        grep -o -P -i -m 1 "(?<=<time day=\"${_day1_date}\">).*?(?=</time>)")
+    local _day1_date="$(date --date="1 day" +%Y-%m-%d)"
 
     # day1 weather condition
-    day1[1]=$(echo ${_day1_forecast_data} | \
-        grep -o -P -i "(?<=<symbol number=\"...\" name=\")[^\"]*")
+    day1[1]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day1_date} 12:00:00\") | .weather[0].description")"
 
     # day1 min temperature
-    day1[2]=$(echo ${_day1_forecast_data} | \
-        grep -o -P -i "(?<=<temperature)[^/]*" | \
-        grep -o -P -i "(?<=min=\")[^(\.|\")]*")
+    day1[2]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day1_date} 06:00:00\") | .main.temp_min")"
+    day1[2]="$(printf "%.0f" "${day1[2]}")"
 
     # day1 max temperature
-    day1[3]=$(echo ${_day1_forecast_data} | \
-        grep -o -P -i "(?<=<temperature)[^/]*" | \
-        grep -o -P -i "(?<=max=\")[^(\.|\")]*")
+    day1[3]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day1_date} 12:00:00\") | .main.temp_max")"
+    day1[3]="$(printf "%.0f" "${day1[3]}")"
 
     # day2 name
     day2[0]="$(get_day_of_week "$(date --date="2 days" +%w)")"
 
-    _day2_date="$(date --date="2 days" +%Y-%m-%d)"
-
-    _day2_forecast_data=$(echo ${weather_forecast_data} | \
-        grep -o -P -i -m 1 "(?<=<time day=\"${_day2_date}\">).*?(?=</time>)")
+    local _day2_date="$(date --date="2 days" +%Y-%m-%d)"
 
     # day2 weather condition
-    day2[1]=$(echo ${_day2_forecast_data} | \
-        grep -o -P -i "(?<=<symbol number=\"...\" name=\")[^\"]*")
+    day2[1]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day2_date} 12:00:00\") | .weather[0].description")"
 
     # day2 min temperature
-    day2[2]=$(echo ${_day2_forecast_data} | \
-        grep -o -P -i "(?<=<temperature)[^/]*" | \
-        grep -o -P -i "(?<=min=\")[^(\.|\")]*")
+    day2[2]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day2_date} 06:00:00\") | .main.temp_min")"
+    day2[2]="$(printf "%.0f" "${day2[2]}")"
 
     # day2 max temperature
-    day2[3]=$(echo ${_day2_forecast_data} | \
-        grep -o -P -i "(?<=<temperature)[^/]*" | \
-        grep -o -P -i "(?<=max=\")[^(\.|\")]*")
+    day2[3]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day2_date} 12:00:00\") | .main.temp_max")"
+    day2[3]="$(printf "%.0f" "${day2[3]}")"
 
     # day3 name
     day3[0]="$(get_day_of_week "$(date --date="3 days" +%w)")"
 
-    _day3_date="$(date --date="3 days" +%Y-%m-%d)"
-
-    _day3_forecast_data=$(echo ${weather_forecast_data} | \
-        grep -o -P -i -m 1 "(?<=<time day=\"${_day3_date}\">).*?(?=</time>)")
+    local _day3_date="$(date --date="3 days" +%Y-%m-%d)"
 
     # day3 weather condition
-    day3[1]=$(echo ${_day3_forecast_data} | \
-        grep -o -P -i "(?<=<symbol number=\"...\" name=\")[^\"]*")
+    day3[1]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day3_date} 12:00:00\") | .weather[0].description")"
 
     # day3 min temperature
-    day3[2]=$(echo ${_day3_forecast_data} | \
-        grep -o -P -i "(?<=<temperature)[^/]*" | \
-        grep -o -P -i "(?<=min=\")[^(\.|\")]*")
+    day3[2]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day3_date} 06:00:00\") | .main.temp_min")"
+    day3[2]="$(printf "%.0f" "${day3[2]}")"
 
     # day3 max temperature
-    day3[3]=$(echo ${_day3_forecast_data} | \
-        grep -o -P -i "(?<=<temperature)[^/]*" | \
-        grep -o -P -i "(?<=max=\")[^(\.|\")]*")
+    day3[3]="$(printf "%s" "${weather_forecast_data}" | \
+        jq -r ".list[] | select(.dt_txt==\"${_day3_date} 12:00:00\") | .main.temp_max")"
+    day3[3]="$(printf "%.0f" "${day3[3]}")"
 }
